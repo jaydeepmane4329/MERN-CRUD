@@ -237,7 +237,9 @@ function App() {
               handleClose={() => setAddSection(false)}
               rest={formData}
               handleImage={handleImage}
-              disable={disable} />
+              disable={disable}
+              editSection={editSection}
+            />
           )
         }
         {
@@ -249,6 +251,7 @@ function App() {
               rest={formEditData}
               handleImage={handleImageInEditMode}
               disable={disable}
+              editSection={editSection}
             />
           )
         }

@@ -2,13 +2,13 @@ import React from 'react'
 import "../App.css"
 import { MdClose } from "react-icons/md";
 
-const Form = ({ handleSubmit, handleChange, handleClose, rest, handleImage, disable }) => {
+const Form = ({ handleSubmit, handleChange, handleClose, rest, handleImage, disable, editSection }) => {
     return (
         <div className="addContainer" >
             <form onSubmit={handleSubmit} action='/' method='post' encType="multipart/form-data">
                 <div className="close-btn" onClick={handleClose}><MdClose /></div>
                 <label htmlFor="Employee">Employee NO : </label>
-                <input type="number" id="employee" name="employee" onChange={handleChange} value={rest.employee} required />
+                <input type="number" id="employee" name="employee" onChange={handleChange} value={rest.employee} disabled={editSection} />
 
                 <label htmlFor="name">Name : </label>
                 <input type="text" id="name" name="name" pattern="^[a-zA-Z_ ]*$" onChange={handleChange} value={rest.name} required />
