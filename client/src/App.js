@@ -4,6 +4,7 @@ import axios from "axios";
 import Form from './components/Form';
 // import { BsFillArrowDownCircleFill } from "react-icons/md"
 
+let disable = true;
 axios.defaults.baseURL = "http://localhost:8080/"
 function App() {
   const [items, setItems] = useState([]);
@@ -40,12 +41,18 @@ function App() {
       reader.onload = (event) => {
         url = reader.result;
         // setImage(url);
-        setFormData(prevValue => {
-          return ({
-            ...prevValue,
-            'photo': url
-          })
-        });
+        if (e.target.files[0].type === "image/jpeg") {
+          disable = true;
+          setFormData(prevValue => {
+            return ({
+              ...prevValue,
+              'photo': url
+            })
+          });
+        } else {
+          alert("it should be image only")
+          disable = false;
+        }
       }
     }
   }
@@ -92,16 +99,19 @@ function App() {
       const file = e.target.files[0];
       let formData = new FormData();
       formData.append('file', file)
-      if (file?.type === 'text/csv') {
+      if (file?.type === 'text/csv' && !(file.size > 15 * 1024 * 1024)) {
         await axios.post("/employeeImport", formData);
+        alert("CSV Imported Successfully")
+        fetchData();
+      } else if (!(file?.type === 'text/csv')) {
+        alert("it can be only a csv file")
+      } else if (file?.type === 'text/csv' && file.size > 15 * 1024 * 1024) {
+        alert("file size should be less than 15mb")
       }
-      alert("CSV Imported Successfully")
-      fetchData();
       e.target.value = "";
     } catch (error) {
       console.log(error)
     }
-
   };
 
   // To fetch the data existing in data base.
@@ -184,12 +194,18 @@ function App() {
       reader.onload = (event) => {
         url = reader.result;
         // setImage(url);
-        setFormEditData(prevValue => {
-          return ({
-            ...prevValue,
-            'photo': url
-          })
-        });
+        if (event.target.files[0].type === "image/jpeg") {
+          disable = true;
+          setFormEditData(prevValue => {
+            return ({
+              ...prevValue,
+              'photo': url
+            })
+          });
+        } else {
+          alert("it should be image only")
+          disable = false;
+        }
       }
     }
   }
@@ -220,7 +236,8 @@ function App() {
               handleChange={handleChange}
               handleClose={() => setAddSection(false)}
               rest={formData}
-              handleImage={handleImage} />
+              handleImage={handleImage}
+              disable={disable} />
           )
         }
         {
@@ -231,6 +248,7 @@ function App() {
               handleClose={() => setEditSection(false)}
               rest={formEditData}
               handleImage={handleImageInEditMode}
+              disable={disable}
             />
           )
         }

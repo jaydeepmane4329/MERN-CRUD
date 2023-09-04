@@ -20,6 +20,14 @@ body {
 
 }
 
+.btn-disable {
+  background-color: #839be3;
+  border: none;
+  padding: 7px 15px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
 .btn-add {
   background: #194864;
   color: white;
