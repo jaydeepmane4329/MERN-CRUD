@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import Form from './components/Form';
-import { BsFillArrowDownCircleFill } from "react-icons/md"
+// import { BsFillArrowDownCircleFill } from "react-icons/md"
 
 axios.defaults.baseURL = "http://localhost:8080/"
 function App() {
@@ -11,7 +11,7 @@ function App() {
   const [totalPages, setTotalPages] = useState(1);
   const [addSection, setAddSection] = useState(false)
   const [editSection, setEditSection] = useState(false);
-  const [image, setImage] = useState('');
+  // const [image, setImage] = useState('');
   const [formData, setFormData] = useState({
     employee: "",
     name: "",
@@ -29,7 +29,7 @@ function App() {
     birthDate: "",
     _id: "",
   })
-  const [dataList, setDataList] = useState([]);
+  // const [dataList, setDataList] = useState([]);
 
   const handleImage = (e) => {
     let url
@@ -39,7 +39,7 @@ function App() {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event) => {
         url = reader.result;
-        setImage(url);
+        // setImage(url);
         setFormData(prevValue => {
           return ({
             ...prevValue,
@@ -92,8 +92,8 @@ function App() {
       const file = e.target.files[0];
       let formData = new FormData();
       formData.append('file', file)
-      if (file?.type == 'text/csv') {
-        const data = await axios.post("/employeeImport", formData);
+      if (file?.type === 'text/csv') {
+        await axios.post("/employeeImport", formData);
       }
       alert("CSV Imported Successfully")
       fetchData();
@@ -118,7 +118,7 @@ function App() {
         console.log(url);
       }
       if (data.data.success) {
-        setDataList(data.data.data)
+        // setDataList(data.data.data)
       }
     } catch (error) {
       console.log("Error in Featching the data:", error)
@@ -183,7 +183,7 @@ function App() {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event) => {
         url = reader.result;
-        setImage(url);
+        // setImage(url);
         setFormEditData(prevValue => {
           return ({
             ...prevValue,
@@ -257,7 +257,7 @@ function App() {
                     <td>{item.name}</td>
                     <td>{item.email}</td>
                     <td>
-                      <img style={{ display: item.photo ? 'inline' : 'none' }} src={item.photo} width="50px" height="50px" />
+                      <img style={{ display: item.photo ? 'inline' : 'none' }} alt='' src={item.photo} width="50px" height="50px" />
                       <br />
                       <a style={{ display: item.photo ? 'inline' : 'none' }} href={item.photo} class="donwload-btn" download="image">Download</a>
                     </td>
