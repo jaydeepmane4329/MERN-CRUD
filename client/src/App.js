@@ -194,7 +194,7 @@ function App() {
       reader.onload = (event) => {
         url = reader.result;
         // setImage(url);
-        if (event.target.files[0].type === "image/jpeg") {
+        if (e.target.files[0].type === "image/jpeg") {
           disable = true;
           setFormEditData(prevValue => {
             return ({

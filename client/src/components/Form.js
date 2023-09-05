@@ -18,6 +18,7 @@ const Form = ({ handleSubmit, handleChange, handleClose, rest, handleImage, disa
 
                 <label htmlFor="photo">Photo: </label>
                 <input type="file" id="Photo" name="photo" onChange={handleImage} accept="image/*" required />
+                <img src={rest.photo} style={{ display: editSection ? 'inline' : 'none', marginLeft: "260px", marginTop: "-50px" }} width="50px" height="50px" />
 
                 <label htmlFor="phoneNumber">Phone Number: </label>
                 <input type="number" id="phoneNumber" name='phoneNumber' maxLength="10" onChange={handleChange} value={rest.phoneNumber} required />
